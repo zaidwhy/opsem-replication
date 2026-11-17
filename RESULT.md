@@ -1,4 +1,4 @@
-# Result: could not be run (time limit)
+# Result: partially replicates (baseline row only; headline fusion number not yet run)
 
 Paper: Training-Free Lexical-Dense Fusion for Conversational-Memory Retrieval, arXiv 2606.04194. Repo Chrislysen/opsem, commit 68186a45882dd85ea66fcc70ee38ba28f6de9a90.
 
@@ -38,3 +38,9 @@ The BM25 baseline needs no encoder, so it was run on its own with the authors' t
 Command: `.venv/Scripts/python.exe tools/bm25_row.py`. Run twice, byte-identical output (`runs/bm25_row_1.log`, `runs/bm25_row_2.log`). Within the 1-point tolerance set in PLAN.md.
 
 Verdict so far: **partially replicates** - the baseline row and the example count match; the headline fusion number is still unrun (encoder embedding did not fit the CPU budget while another job held the machine). This says nothing yet about the claim the paper is about.
+
+### Second route to the same row
+
+`tools/bm25_second_route.py` uses none of the authors' code: its own LoCoMo parse, its own tokenizer (lowercase word characters) and textbook Okapi BM25 (k1 1.5, b 0.75). Result: Hit@1 0.6332 on 1,982 questions (`runs/bm25_second_route.log`), against 0.6395 on 1,978 through the authors' functions and 0.640 in the paper. The 0.6-point gap and the 4 extra questions come from tokenizer and gold-filter differences that were not traced further. The baseline row does not depend on anything particular to the authors' loader or scorer.
+
+Deviations from the paper's setup for the rows run so far: none for `tools/bm25_row.py` (authors' functions, same data file, sha256 in PLAN.md); library versions are whatever `requirements.lock.txt` records, not the authors' unpinned environment.
