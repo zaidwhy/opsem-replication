@@ -1,0 +1,6 @@
+examples 1978 conversations 10
+BM25 hit@1 0.6395
+BM25 recall@3 0.7788
+BM25 recall@5 0.8325
+BM25 mrr 0.7504
+BM25 ndcg@5 0.7456
