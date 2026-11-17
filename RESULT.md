@@ -1,21 +1,24 @@
-# Result: could not be run
+# Result: could not be run (time limit)
 
-Paper: Training-Free Lexical-Dense Fusion for Conversational-Memory Retrieval (arXiv 2606.04194), repo Chrislysen/opsem at 68186a45882dd85ea66fcc70ee38ba28f6de9a90.
+Paper: Training-Free Lexical-Dense Fusion for Conversational-Memory Retrieval, arXiv 2606.04194. Repo Chrislysen/opsem, commit 68186a45882dd85ea66fcc70ee38ba28f6de9a90.
 
-Claim (paper.tex, abstract and Table of fusion results): BM25 + max-sim fusion reaches LoCoMo Hit@1 0.752 with e5-large-v2 (BM25 0.640, max-sim 0.664), +8.8 to +17.2 pp over late interaction alone across six encoders.
+Claim (paper.tex, checked against the source): on LoCoMo (n=1978), e5-large-v2, BM25 Hit@1 0.640, dense max-sim 0.664, BM25 + max-sim fusion Hit@1 0.752, NDCG@5 0.829.
+
+Scope for this attempt: the e5-large-v2 row only. The "+8.8 to +17.2 pp across six encoders" range was not attempted.
 
 | Quantity | Paper | Mine | Difference |
 |---|---|---|---|
-| e5-large-v2 fusion Hit@1 | 0.752 | not produced | n/a |
+| BM25 Hit@1 | 0.640 | not produced | n/a |
+| max-sim Hit@1 | 0.664 | not produced | n/a |
+| fusion Hit@1 | 0.752 | not produced | n/a |
+| fusion NDCG@5 | 0.829 | not produced | n/a |
 
 Verdict: could not be run.
 
-Why: the 6 GB free-disk floor set for this task was crossed. C: had 12G free at start, 2.7G after installing CPU torch, and 288M minutes later, with other jobs consuming the space. Encoder weights (e5-large-v2 is about 1.3 GB) were never downloaded and no embedding or evaluation script was executed. No number was produced.
+What happened: the LoCoMo file was verified (2805274 bytes, sha256 79fa87e90f04081343b8c8debecb80a9a6842b76a7aa537dc9fdf651ea698ff4, identical to a fresh download from snap-research/locomo, 10 conversations, 5882 turns). I ran
+`HF_HOME=.hf python embed_turns_multi.py intfloat/e5-large-v2 "query: " "passage: "` from upstream/opsem. A 200-turn timing predicted 92.6 min; the full run, sharing the CPU with other jobs, did 788 of 5882 turns in about 30 min (about 26 turns/min), projecting about 3.8 h total. That exceeds the 2 h limit, so I stopped it without subsampling. The script saves embeddings only at the end, so nothing was kept. No evaluation script was executed.
 
-What was done: paper and code verified to exist (arXiv abs/HTML fetched; headline numbers cross-checked against upstream/opsem/paper/paper.tex), LoCoMo licence checked (CC BY-NC 4.0), plan committed, repo cloned, venv created with CPU torch 2.15.0 and numpy 2.5.5 (Python 3.14.6).
-
-Not verified: everything about replication. Also not done: DEVIATIONS.md (no changes made to upstream code), determinism run, requirements.lock.txt (install unfinished).
-
+Not verified: all four numbers, and determinism.
 What this does not show: nothing about whether the paper's numbers are right or wrong.
 
-To resume once at least 6 GB is free: finish `pip install sentence-transformers scipy matplotlib datasets` in .venv, place locomo10.json at upstream/opsem/data/locomo/, run embed_locomo.py, embed_turns.py, embed_turns_multi.py for the other five encoders with their prefixes (e5: "query: " / "passage: "), then tune13_interaction.py and tune13b_fusion_vs_late.py.
+To resume: run the same command on an idle CPU (about 1.5 to 2 h at the 200-turn rate, longer if shared), then `python tune13_interaction.py` and `python tune13b_fusion_vs_late.py` with the ENCODERS edit in upstream_changes.patch applied. Needs about 1.3 GB for the model cache plus the 0.7 GB venv.

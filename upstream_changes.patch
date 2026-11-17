@@ -1,0 +1,16 @@
+diff --git a/tune13_interaction.py b/tune13_interaction.py
+index be4e08a..85fbea2 100644
+--- a/tune13_interaction.py
++++ b/tune13_interaction.py
+@@ -62,11 +62,6 @@ LOCOMO = _HERE / "data" / "locomo" / "locomo10.json"
+ RES = _HERE / "results"
+ 
+ ENCODERS = [
+-    ("bge-base", None, None),  # special-cased below
+-    ("e5-base-v2", "intfloat_e5-base-v2", 768),
+-    ("gte-base", "thenlper_gte-base", 768),
+-    ("bge-large", "BAAI_bge-large-en-v1-5", 1024),
+-    ("mxbai-large", "mixedbread-ai_mxbai-embed-large-v1", 1024),
+     ("e5-large-v2", "intfloat_e5-large-v2", 1024),
+ ]
+ 
