@@ -42,3 +42,6 @@ Run the headline pipeline twice (second run from freshly rebuilt embeddings for 
 
 ## Change log
 (none yet)
+
+## Change log
+- 2026-11-18: Stopped before running any experiment. Free space on C: was 12G at start, 2.7G after the CPU torch install (venv about 0.7G, pip cache about 0.13G, i.e. under 1G is mine), then 288M a few minutes later. The brief says stop if free space would drop under 6G. The drop is from other jobs on the machine, not from this task. No encoder weights were downloaded. The pending `pip install sentence-transformers ...` was still running at that point and may leave a partial venv.
