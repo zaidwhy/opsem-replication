@@ -10,7 +10,7 @@ Written and committed before any experiment script was run (environment setup an
 - Commit cloned: 68186a45882dd85ea66fcc70ee38ba28f6de9a90 (2 June 2026)
 
 ## Candidates considered (3)
-1. opsem / arXiv 2606.04194 (chosen). Retrieval only, CPU only, no LLM, LoCoMo + small encoders, ships result receipts. Feasible. Downside: obscure (2 stars).
+1. opsem / arXiv 2606.04194 (chosen). Retrieval only, CPU only, no LLM, LoCoMo + small encoders, ships result receipts. Feasible. Downside: little known (2 stars).
 2. ConvMemory, arXiv 2605.28062. No code repo found on the abstract page; author says numbers are single-seed. Infeasible as a replication.
 3. rohitg00/agentmemory LongMemEval-S retrieval file (all-MiniLM-L6-v2, R@5 95.2 hybrid). Not a paper, vendor self-report; would be a repo claim, not a paper claim. Not chosen.
 Also seen and rejected: arXiv 2605.04897 (vendor report, needs LLM reader for headline), Hindsight 2512.12818 (2025, LLM), memory-probe 2603.02473 (LLM answers), MemMachine 2604.04853 (GPT-5-mini).
