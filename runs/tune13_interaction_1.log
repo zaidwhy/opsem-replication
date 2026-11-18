@@ -1,0 +1,6 @@
+building signals from cache (no model load)...
+  1978 examples, 10 conversations, encoders=['e5-large-v2']
+  BM25  hit@1=0.6395  recall@3=0.7788  recall@5=0.8325  mrr=0.7504  ndcg@5=0.7456
+  [e5-large-v2] dense late-early d=+23.71pp p=0.0000 | fusion late-early d=+8.59pp p=0.0000
+
+wrote C:\Users\Asus\projects\replication-study\upstream\opsem\results\tune13-interaction-20261118T012520\tune13.md
